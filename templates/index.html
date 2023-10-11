@@ -18,7 +18,12 @@
         <![endif]-->
         <h1>歡迎光臨我的BLOG</h1>
         <hr>
-        {{posts}}
+        {% for post in posts %}
+        <p>
+            <a href='/post/{{post.slug}}'>{{ post.title }}</a>
+        </p>
+        {% endfor %}
+
         <hr>
         現在時間: {{ now }}
         <script src="" async defer></script>
