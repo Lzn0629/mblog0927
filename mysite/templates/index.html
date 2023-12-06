@@ -1,0 +1,70 @@
+{% extends "base2.html" %}
+{% block title %}歡迎光臨我的部落格{% endblock title %}
+{% block headmessage %} 
+<h3 style='font-family:標楷體;'>本站文章列表</a> 
+{% if hour > 13 %}
+下午安
+{% elif hour < 10 %}
+早安
+{% else %}
+您好
+{% endif %}
+<head>
+    <meta charset='utf-8'>
+    <title>Home Page</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+	<nav class='navbar navbar-default'>
+	  <div class='container-fluid'>
+	   <div class='navbar-header'>
+	      <a class='navbar-brand' href='#'>現正播出{{tv.name}}</a>
+	   </div>
+	  <ul class='nav navbar-nav'>
+	   <li class='active'><a href='/'>Home</a></li>
+	   <li><a href='{% url 'tv-url' 0 %}'>東森</a></li>
+	   <li><a href='{% url 'tv-url' 1 %}'>民視</a></li>
+	   <li><a href='{% url 'tv-url' 2 %}'>台視</a></li>
+	   <li><a href='{% url 'tv-url' 3 %}'>華視</a></li>
+	   </ul>
+	 </div>
+	</nav>
+    <div class='conatiner'>
+        <div id='tvcode' align='center'>
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/{{tv.tvcode}}?autoplay=1" frameborder="0" allowfullscreen></iframe>
+          </div>
+         </div>
+     <div class='panel panel-default'>
+         <div class='panel-footer'><em>{{ now }}</div>
+     </div>
+     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+     </body>
+{% endblock headmessage %} 
+{% block content %} 
+{% for post in posts %}
+<div class='card'>
+    <div class='card-header'>
+        <p style='font-family:微軟正黑體;font-size:14pt;font-weight:bold;'>
+            <a href='/post/{{post.slug}}'>{{ post.title }}</a>
+        </p>
+    </div>
+    <div class='card-body' style='background-color:pink'>
+        <p>
+           {{ post.body | truncatechars:40 }}
+        </p>
+    </div>
+    <div class='card-footer'  style='background-color:#efefef'>
+        <p>
+            發佈時間：{{ post.pub_date | date:"Y M d, h:m:s A"}}
+        </p>
+    </div>
+</div>
+<br> 
+{% endfor %}
+{% endblock content %}

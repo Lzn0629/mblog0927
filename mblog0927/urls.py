@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from mysite.views import homepage
-from django.urls import include, path
-from django.contrib import admin
-from mysite.views import homepage, showpost
+from mysite import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage),
-    path('post/<slug:slug>/', showpost),
+    path('', views.homepage, name="homepage"),
+    path('post/<slug:slug>/', views.showpost, name="showpost"),
+    path('post/', views.show_all_posts, name="show-all-posts"),
+    path('post/<int:post_id>/comments', views.show_comments, name='show-comments'),
+    path('about/', views.about),
+    path('about/<int:num>', views.about, name='about'),
+    path('carlist/', views.carlist),
+    path('carlist/<int:maker>/', views.carlist, name='carlist-url'),
+    path('', views.index),
+    path('<int:tvno>/', views.index, name = 'tv-url')
 ]
